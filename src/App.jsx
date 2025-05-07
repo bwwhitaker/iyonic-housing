@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 function App() {
-	return <>Empty App</>;
+	return <>Iyonic Housing</>;
 }
 
 export default App;
