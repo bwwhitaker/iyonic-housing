@@ -7,7 +7,7 @@ import '@testing-library/jest-dom/vitest';
 describe('App Name Appears in NavBar Component', () => {
 	render(<WebsiteHeader />);
 	it('renders with default props', () => {
-		expect(screen.getByText('Iyonic Housing')).toBeInTheDocument();
+		expect(screen.getByText('iyonic housing')).toBeInTheDocument();
 	});
 
 	it('renders logomark', () => {});

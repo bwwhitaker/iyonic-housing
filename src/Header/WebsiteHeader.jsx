@@ -4,7 +4,7 @@ import './WebsiteHeader.css';
 
 export default function WebsiteHeader() {
 	return (
-		<div>
+		<div className='header-container'>
 			<div>
 				<h1>
 					<img src={logo} className='svg-image' alt-='iyonic logo' />
