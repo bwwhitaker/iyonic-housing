@@ -46,3 +46,9 @@
 .dropdown-Menu-Content.show {
 	display: block;
 }
+
+@media screen and (max-width: 1000px) {
+	.Desktop-Menu {
+		gap: 25px;
+	}
+}
