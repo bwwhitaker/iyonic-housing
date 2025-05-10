@@ -7,7 +7,7 @@ export default defineConfig({
 			enabled: true,
 			reporter: ['text', 'html'],
 			reportsDirectory: './coverage',
-			exclude: ['node_modules/', 'tests/'],
+			exclude: ['node_modules/', 'tests/', './vite.config.js', './vitest.config.js', './eslint.config.js'],
 		},
 	},
 });

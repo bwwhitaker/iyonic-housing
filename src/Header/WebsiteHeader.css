@@ -1,8 +1,18 @@
 .header-container {
 	position: fixed;
 	top: 0;
-	right: 0;
-	left: 0;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	z-index: 999;
+}
+
+.menu-container {
+	display: flex;
+	justify-content: center;
+	width: 100%;
 	z-index: 999;
 }
 .svg-image {
@@ -12,10 +22,48 @@
 	margin-right: 16px;
 }
 
+.hamburger-svg {
+	display: none;
+	width: 20px;
+	height: 20px;
+	margin-left: 16px;
+}
+
 h1 {
 	font-size: 32px;
 	font-weight: bold;
 	color: #325d63;
 	display: flex;
+	width: 100%;
 	align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+	.hamburger-svg {
+		display: inline-block;
+		margin-right: 16px;
+	}
+
+	.header-container {
+		justify-content: left !important;
+		margin-left: 16px;
+	}
+
+	.title-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 95%;
+		padding-right: 16px;
+	}
+}
+
+.hamburger-svg:hover {
+	opacity: 0.5;
+	cursor: pointer;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
 }
