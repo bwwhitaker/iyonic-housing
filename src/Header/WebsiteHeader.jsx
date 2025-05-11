@@ -28,7 +28,7 @@ export default function WebsiteHeader() {
 		<div className='header-container'>
 			<div className='title-row'>
 				<h1>
-					<img src={logo} className='svg-image' alt-='iyonic logo' />
+					<img src={logo} className='svg-image' alt='iyonic logo' />
 					iyonic housing
 				</h1>
 				<div className='dropdown' ref={dropdownRef}>

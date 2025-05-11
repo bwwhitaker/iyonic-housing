@@ -9,6 +9,20 @@ describe('App Name Appears in NavBar Component', () => {
 	it('renders with default props', () => {
 		expect(screen.getByText('iyonic housing')).toBeInTheDocument();
 	});
+});
 
-	it('renders logomark', () => {});
+describe('iyonic logo is handled correctly', () => {
+	it('displays the iyonic logo image'),
+		() => {
+			render(<WebsiteHeader />);
+			const image = screen.getAllByAltText('iyonic logo');
+			expect(image).toHaveAttribute('src', 'logo');
+		};
+
+	it('has correct alt text'),
+		() => {
+			render(<WebsiteHeader />);
+			const image = screen.getAllByAltText('iyonic logo');
+			expect(image).toHaveAttribute('alt', 'iyonic logo');
+		};
 });

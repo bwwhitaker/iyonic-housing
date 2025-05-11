@@ -3,3 +3,11 @@
 	margin-right: 10px auto;
 	text-align: center;
 }
+
+header {
+	padding-bottom: 96px;
+}
+
+main {
+	margin: auto;
+}
