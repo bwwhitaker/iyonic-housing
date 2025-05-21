@@ -3,6 +3,9 @@
 	--adu-small-max-width: 240px;
 	--cta-card-min-width: 350px;
 	--cta-card-max-width: 384px;
+	--neighborhood-large-max-width: 800px;
+	--neighborhood-small-max-width: 384px;
+	--neighborhood-cta-max-width: 500px;
 }
 
 .body {
@@ -72,11 +75,41 @@
 }
 
 .calculator-cta-card h2 {
-	font-size: 35px;
+	font-size: clamp(20px, 4vw, 35px);
 	padding: 0 15px;
 }
 
 .calculator-cta-card p {
-	font-size: 20px;
+	font-size: clamp(12px, 8vw, 20px);
+	width: 90%;
 	padding: 0 25px;
+	margin-bottom: 5px;
+}
+
+.neighborhood-effort-cta-container {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	flex-wrap: wrap;
+	padding: 20px;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
+
+.neighborhood-effort-cta-container h2 {
+	text-align: left;
+	font-size: clamp(30px, 6vw, 70px);
+	display: flex;
+	flex: wrap;
+	width: clamp(250px, 100vw, var(--neighborhood-cta-max-width));
+	color: #20673f;
+}
+
+.neighborhood-image {
+	max-width: 704px;
+	height: auto;
+	border-radius: 28px;
+	box-sizing: border-box;
+	width: clamp(var(--neighborhood-small-max-width), 30vw, var(--adu-large-max-width));
 }
