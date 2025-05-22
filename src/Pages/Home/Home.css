@@ -113,3 +113,10 @@
 	box-sizing: border-box;
 	width: clamp(var(--neighborhood-small-max-width), 30vw, var(--adu-large-max-width));
 }
+
+@media screen and (max-width: 420px) {
+	.adu2-image,
+	.adu3-image {
+		display: none;
+	}
+}
