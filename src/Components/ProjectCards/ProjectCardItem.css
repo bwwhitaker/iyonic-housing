@@ -1,0 +1,27 @@
+.project-card {
+	padding: 24px;
+	background-color: #faf3e9;
+	border-radius: 12px;
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	box-sizing: border-box;
+}
+
+.card-content {
+	display: flex;
+	flex-direction: row;
+	gap: 12px;
+}
+
+.card-title {
+	font-weight: bold;
+	font-size: 20px;
+	text-align: left;
+}
+
+.card-subtitle {
+	text-align: center;
+	font-size: 14px;
+	text-align: left;
+}

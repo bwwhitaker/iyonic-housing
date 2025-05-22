@@ -5,7 +5,7 @@ import adu2 from '../../assets/adu2.png';
 import adu3 from '../../assets/adu3.png';
 import nieghborhood from '../../assets/neighborhood.png';
 import ProjectCards from '../../Components/ProjectCards/ProjectCards';
-import ContactForm from '../../Components/ProjectCards/ContactForm';
+import ContactForm from '../../Components/ContactForm/ContactForm';
 
 export default function Home() {
 	return (

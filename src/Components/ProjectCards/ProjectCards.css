@@ -1,0 +1,16 @@
+.project-cards-container {
+	border-radius: 12px;
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: 1fr;
+	background-color: #fffcf5;
+	gap: 16px;
+	padding: 8px;
+	box-sizing: border-box;
+}
+
+@media (max-width: 800px) {
+	.project-cards-container {
+		grid-auto-flow: unset;
+	}
+}
