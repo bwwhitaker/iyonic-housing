@@ -114,9 +114,39 @@
 	width: clamp(var(--neighborhood-small-max-width), 30vw, var(--adu-large-max-width));
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 460px) {
 	.adu2-image,
 	.adu3-image {
 		display: none;
+	}
+}
+.choose-us-container {
+	width: 100%;
+	display: flex;
+	flex-wrap: nowrap;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.choose-us-title {
+	font-size: 48px;
+	font-weight: bold;
+	width: 40%;
+}
+
+.choose-us-body {
+	font-size: 24px;
+	width: 60%;
+	text-align: left;
+}
+
+@media screen and (max-width: 750px) {
+	.choose-us-title,
+	.choose-us-body {
+		width: 100%;
+		text-align: left;
+	}
+	.choose-us-container {
+		flex-wrap: wrap;
 	}
 }
