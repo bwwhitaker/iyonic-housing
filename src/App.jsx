@@ -17,7 +17,13 @@ function App() {
 					<WebsiteHeader />
 				</header>
 				<main>
-					<Suspense fallback={<div>Loading...</div>}>
+					<Suspense
+						fallback={
+							<div>
+								<h4>Loading...</h4>
+							</div>
+						}
+					>
 						<Routes>
 							<Route path='/' element={<Home />} />
 							<Route path='/about' element={<About />} />

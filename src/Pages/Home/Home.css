@@ -1,10 +1,10 @@
 :root {
 	--adu-large-max-width: 416px;
 	--adu-small-max-width: 240px;
-	--cta-card-min-width: 350px;
+	--cta-card-min-width: 275px;
 	--cta-card-max-width: 384px;
 	--neighborhood-large-max-width: 800px;
-	--neighborhood-small-max-width: 384px;
+	--neighborhood-small-max-width: 275px;
 	--neighborhood-cta-max-width: 500px;
 }
 
@@ -46,7 +46,7 @@
 
 .adu1-image {
 	margin-right: 20px;
-	width: clamp(250px, 30vw, var(--adu-large-max-width));
+	width: clamp(200px, 30vw, var(--adu-large-max-width));
 	height: auto;
 	object-fit: contain;
 }
