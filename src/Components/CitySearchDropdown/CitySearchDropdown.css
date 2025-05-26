@@ -1,10 +1,11 @@
-.state-search-container {
+.city-search-container {
 	position: relative;
 	max-width: 400px;
 	margin: 2rem auto;
+	font-family: Arial, sans-serif;
 }
 
-.state-search-input {
+.city-search-input {
 	width: 100%;
 	padding: 8px 12px;
 	border: 1px solid #ccc;
@@ -13,7 +14,7 @@
 	box-sizing: border-box;
 }
 
-.state-search-dropdown {
+.city-search-dropdown {
 	position: absolute;
 	width: 100%;
 	max-height: 240px;
@@ -25,13 +26,13 @@
 	z-index: 1000;
 }
 
-.state-search-option {
+.city-search-option {
 	padding: 10px 12px;
 	cursor: pointer;
 }
 
-.state-search-option:hover,
-.state-search-option.selected {
+.city-search-option:hover,
+.city-search-option.selected {
 	background-color: #007bff;
 	color: #fff;
 }
