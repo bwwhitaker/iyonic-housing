@@ -1,50 +1,55 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './CitySearchDropdown.css';
+import './StateSearchDropdown.css';
 
-export default function CitySearchDropdown({ state: selectedState, handleProspectCity }) {
-	const [cities, setCities] = useState([]);
+export default function StateSearchDropdown({ handleProspectState }) {
+	const [states, setStates] = useState([]);
 	const [query, setQuery] = useState('');
-	const [filteredCities, setFilteredCities] = useState([]);
+	const [filteredStates, setFilteredStates] = useState([]);
 	const [selectedIndex, setSelectedIndex] = useState(-1);
 	const [showDropdown, setShowDropdown] = useState(false);
 	const inputRef = useRef(null);
 	const wrapperRef = useRef(null);
 	const justSelected = useRef(false);
+	const itemRefs = useRef([]);
 
-	// Fetch cities
-
+	// Fetch states
 	useEffect(() => {
-		if (selectedState === '') return;
-
-		fetch(`http://localhost:3000/api/cities?state=${selectedState}`)
+		fetch('http://localhost:3000/api/states')
 			.then((res) => res.json())
 			.then((data) => {
-				setCities(data.cities);
-				setQuery('');
-				setFilteredCities([]);
-				setSelectedIndex(-1);
-				setShowDropdown(false);
+				setStates(data.states);
 			})
 			.catch((err) => console.error('Error fetching states:', err));
-	}, [selectedState]);
+	}, []);
 
-	// Filter cities when query changes
+	// Filter states when query changes
 	useEffect(() => {
 		if (justSelected.current) {
 			justSelected.current = false;
 			return;
 		}
 		const q = query.toLowerCase();
-		const filtered = cities.filter((city) => city.toLowerCase().includes(q));
-		setFilteredCities(filtered);
+		const filtered = states.filter((state) => state.toLowerCase().includes(q));
+		setFilteredStates(filtered);
 		setShowDropdown(filtered.length > 0 && query !== '');
 		setSelectedIndex(-1);
-	}, [query, cities]);
+		itemRefs.current = [];
+	}, [query, states]);
 
-	const handleSelect = (city) => {
-		setQuery(city);
+	// Scroll selected item into view
+	useEffect(() => {
+		if (selectedIndex >= 0 && itemRefs.current[selectedIndex]) {
+			itemRefs.current[selectedIndex].scrollIntoView({
+				behavior: 'smooth',
+				block: 'nearest',
+			});
+		}
+	}, [selectedIndex]);
+
+	const handleSelect = (state) => {
+		setQuery(state);
 		setShowDropdown(false);
-		handleProspectCity(city);
+		handleProspectState(state);
 		justSelected.current = true; // prevent dropdown from reopening
 		inputRef.current?.blur();
 	};
@@ -58,21 +63,25 @@ export default function CitySearchDropdown({ state: selectedState, handleProspec
 
 		if (e.key === 'ArrowDown') {
 			e.preventDefault();
-			setSelectedIndex((prev) => (prev + 1) % filteredCities.length);
+			setSelectedIndex((prev) => (prev + 1) % filteredStates.length);
 		} else if (e.key === 'ArrowUp') {
 			e.preventDefault();
 			setSelectedIndex((prev) =>
-				prev === -1 ? filteredCities.length - 1 : (prev - 1 + filteredCities.length) % filteredCities.length
+				prev === -1 ? filteredStates.length - 1 : (prev - 1 + filteredStates.length) % filteredStates.length
 			);
 		} else if (e.key === 'Enter' && selectedIndex !== -1) {
 			e.preventDefault();
-			handleSelect(filteredCities[selectedIndex]);
+			handleSelect(filteredStates[selectedIndex]);
 			setShowDropdown(false);
 		} else if (e.key === 'Escape') {
 			e.preventDefault();
 			setQuery('');
 			setShowDropdown(false);
 		}
+	};
+
+	const handleClickInside = () => {
+		setShowDropdown(true);
 	};
 
 	useEffect(() => {
@@ -88,26 +97,28 @@ export default function CitySearchDropdown({ state: selectedState, handleProspec
 	}, []);
 
 	return (
-		<div className='city-search-container' ref={wrapperRef}>
+		<div className='state-search-container' ref={wrapperRef}>
 			<input
 				type='text'
-				placeholder='City...'
-				className='city-search-input'
+				placeholder='State...'
+				className='state-search-input'
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
 				onKeyDown={handleKeyDown}
 				ref={inputRef}
+				onClick={handleClickInside}
 			/>
 			{showDropdown && (
-				<ul className='city-search-dropdown'>
-					{filteredCities.map((city, index) => (
-						<li
-							key={city}
-							onClick={() => handleSelect(city)}
-							className={`city-search-option  ${index === selectedIndex ? 'selected' : ''}`}
+				<ul className='state-search-dropdown'>
+					{filteredStates.map((state, index) => (
+						<p
+							ref={(el) => (itemRefs.current[index] = el)}
+							key={state}
+							onClick={() => handleSelect(state)}
+							className={`state-search-option  ${index === selectedIndex ? 'selected' : ''}`}
 						>
-							{city}
-						</li>
+							{state}
+						</p>
 					))}
 				</ul>
 			)}

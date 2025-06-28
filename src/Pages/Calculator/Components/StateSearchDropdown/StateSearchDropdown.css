@@ -36,3 +36,8 @@
 	background-color: #007bff;
 	color: #fff;
 }
+
+p {
+	margin: 0;
+	text-align: left;
+}

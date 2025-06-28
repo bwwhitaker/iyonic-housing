@@ -6,6 +6,7 @@ import Menu from './Menu/Menu';
 import DropdownMenu from './Menu/DropdownMenu';
 import hamburger from '../assets/HamburgerMenu.svg';
 import './Menu/Menu.css';
+import { Link } from 'react-router-dom';
 
 export default function WebsiteHeader() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +29,9 @@ export default function WebsiteHeader() {
 		<div className='header-container'>
 			<div className='title-row'>
 				<h1>
-					<img src={logo} className='svg-image' alt='iyonic logo' />
+					<Link to='/'>
+						<img src={logo} className='svg-image' alt='iyonic logo' />{' '}
+					</Link>
 					iyonic housing
 				</h1>
 				<div className='dropdown' ref={dropdownRef}>
