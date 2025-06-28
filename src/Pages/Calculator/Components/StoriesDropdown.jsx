@@ -1,47 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './CitySearchDropdown.css';
+import './CalculatorDropdown.css';
 
-export default function CitySearchDropdown({ state: selectedState, handleProspectCity }) {
-	const [cities, setCities] = useState([]);
+export default function StoriesDropdown({ handleProspectStories }) {
+	const stories = [1, 2, 3];
 	const [query, setQuery] = useState('');
-	const [filteredCities, setFilteredCities] = useState([]);
 	const [selectedIndex, setSelectedIndex] = useState(-1);
 	const [showDropdown, setShowDropdown] = useState(false);
 	const inputRef = useRef(null);
 	const wrapperRef = useRef(null);
 	const justSelected = useRef(false);
 	const itemRefs = useRef([]);
-
-	// Fetch cities
-
-	useEffect(() => {
-		if (selectedState === '') return;
-
-		fetch(`http://localhost:3000/api/cities?state=${selectedState}`)
-			.then((res) => res.json())
-			.then((data) => {
-				setCities(data.cities);
-				setQuery('');
-				setFilteredCities([]);
-				setSelectedIndex(-1);
-				setShowDropdown(false);
-			})
-			.catch((err) => console.error('Error fetching states:', err));
-	}, [selectedState]);
-
-	// Filter cities when query changes
-	useEffect(() => {
-		if (justSelected.current) {
-			justSelected.current = false;
-			return;
-		}
-		const q = query.toLowerCase();
-		const filtered = cities.filter((city) => city.toLowerCase().includes(q));
-		setFilteredCities(filtered);
-		setShowDropdown(filtered.length > 0 && query !== '');
-		setSelectedIndex(-1);
-		itemRefs.current = [];
-	}, [query, cities]);
 
 	// Scroll selected item into view
 	useEffect(() => {
@@ -53,10 +21,10 @@ export default function CitySearchDropdown({ state: selectedState, handleProspec
 		}
 	}, [selectedIndex]);
 
-	const handleSelect = (city) => {
-		setQuery(city);
+	const handleSelect = (stories) => {
+		setQuery(stories);
 		setShowDropdown(false);
-		handleProspectCity(city);
+		handleProspectStories(stories);
 		justSelected.current = true; // prevent dropdown from reopening
 		inputRef.current?.blur();
 	};
@@ -70,15 +38,13 @@ export default function CitySearchDropdown({ state: selectedState, handleProspec
 
 		if (e.key === 'ArrowDown') {
 			e.preventDefault();
-			setSelectedIndex((prev) => (prev + 1) % filteredCities.length);
+			setSelectedIndex((prev) => (prev + 1) % stories.length);
 		} else if (e.key === 'ArrowUp') {
 			e.preventDefault();
-			setSelectedIndex((prev) =>
-				prev === -1 ? filteredCities.length - 1 : (prev - 1 + filteredCities.length) % filteredCities.length
-			);
+			setSelectedIndex((prev) => (prev === -1 ? stories.length - 1 : (prev - 1 + stories.length) % stories.length));
 		} else if (e.key === 'Enter' && selectedIndex !== -1) {
 			e.preventDefault();
-			handleSelect(filteredCities[selectedIndex]);
+			handleSelect(stories[selectedIndex]);
 			setShowDropdown(false);
 		} else if (e.key === 'Escape') {
 			e.preventDefault();
@@ -104,28 +70,30 @@ export default function CitySearchDropdown({ state: selectedState, handleProspec
 	}, []);
 
 	return (
-		<div className='city-search-container' ref={wrapperRef}>
+		<div className='calculator-dropdown-container' ref={wrapperRef}>
 			<input
-				type='text'
-				placeholder='City...'
-				className='city-search-input'
+				/* onFocus={setShowDropdown(true)} */
+				type='number'
+				placeholder='Stories..'
+				className='calculator-dropdown-input'
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
 				onKeyDown={handleKeyDown}
-				onClick={handleClickInside}
 				ref={inputRef}
+				onClick={handleClickInside}
+				onWheel={(e) => e.target.blur()}
 			/>
 			{showDropdown && (
-				<ul className='city-search-dropdown'>
-					{filteredCities.map((city, index) => (
-						<p
-							key={city}
+				<ul className='calculator-dropdown-dropdown'>
+					{stories.map((story, index) => (
+						<li
 							ref={(el) => (itemRefs.current[index] = el)}
-							onClick={() => handleSelect(city)}
-							className={`city-search-option  ${index === selectedIndex ? 'selected' : ''}`}
+							key={story}
+							onClick={() => handleSelect(story)}
+							className={`calculator-dropdown-option  ${index === selectedIndex ? 'selected' : ''}`}
 						>
-							{city}
-						</p>
+							{story}
+						</li>
 					))}
 				</ul>
 			)}

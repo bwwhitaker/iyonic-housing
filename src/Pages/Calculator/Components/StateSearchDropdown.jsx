@@ -1,15 +1,40 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './HouseSquareFootDropdown.css';
+import './CalculatorDropdown.css';
 
-export default function HouseSquareFootDropdown({ handleProspectHouseSize }) {
-	const houseSizes = [1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3250, 3500, 3750, 4000];
+export default function StateSearchDropdown({ handleProspectState }) {
+	const [states, setStates] = useState([]);
 	const [query, setQuery] = useState('');
+	const [filteredStates, setFilteredStates] = useState([]);
 	const [selectedIndex, setSelectedIndex] = useState(-1);
 	const [showDropdown, setShowDropdown] = useState(false);
 	const inputRef = useRef(null);
 	const wrapperRef = useRef(null);
 	const justSelected = useRef(false);
 	const itemRefs = useRef([]);
+
+	// Fetch states
+	useEffect(() => {
+		fetch('http://localhost:3000/api/states')
+			.then((res) => res.json())
+			.then((data) => {
+				setStates(data.states);
+			})
+			.catch((err) => console.error('Error fetching states:', err));
+	}, []);
+
+	// Filter states when query changes
+	useEffect(() => {
+		if (justSelected.current) {
+			justSelected.current = false;
+			return;
+		}
+		const q = query.toLowerCase();
+		const filtered = states.filter((state) => state.toLowerCase().includes(q));
+		setFilteredStates(filtered);
+		setShowDropdown(filtered.length > 0 && query !== '');
+		setSelectedIndex(-1);
+		itemRefs.current = [];
+	}, [query, states]);
 
 	// Scroll selected item into view
 	useEffect(() => {
@@ -21,10 +46,10 @@ export default function HouseSquareFootDropdown({ handleProspectHouseSize }) {
 		}
 	}, [selectedIndex]);
 
-	const handleSelect = (houseSize) => {
-		setQuery(houseSize);
+	const handleSelect = (state) => {
+		setQuery(state);
 		setShowDropdown(false);
-		handleProspectHouseSize(houseSize);
+		handleProspectState(state);
 		justSelected.current = true; // prevent dropdown from reopening
 		inputRef.current?.blur();
 	};
@@ -38,15 +63,15 @@ export default function HouseSquareFootDropdown({ handleProspectHouseSize }) {
 
 		if (e.key === 'ArrowDown') {
 			e.preventDefault();
-			setSelectedIndex((prev) => (prev + 1) % houseSizes.length);
+			setSelectedIndex((prev) => (prev + 1) % filteredStates.length);
 		} else if (e.key === 'ArrowUp') {
 			e.preventDefault();
 			setSelectedIndex((prev) =>
-				prev === -1 ? houseSizes.length - 1 : (prev - 1 + houseSizes.length) % houseSizes.length
+				prev === -1 ? filteredStates.length - 1 : (prev - 1 + filteredStates.length) % filteredStates.length
 			);
 		} else if (e.key === 'Enter' && selectedIndex !== -1) {
 			e.preventDefault();
-			handleSelect(houseSizes[selectedIndex]);
+			handleSelect(filteredStates[selectedIndex]);
 			setShowDropdown(false);
 		} else if (e.key === 'Escape') {
 			e.preventDefault();
@@ -72,12 +97,11 @@ export default function HouseSquareFootDropdown({ handleProspectHouseSize }) {
 	}, []);
 
 	return (
-		<div className='house-size-container' ref={wrapperRef}>
+		<div className='calculator-dropdown-container' ref={wrapperRef}>
 			<input
-				/* onFocus={setShowDropdown(true)} */
-				type='number'
-				placeholder='House Size...'
-				className='house-size-input'
+				type='text'
+				placeholder='State...'
+				className='calculator-dropdown-input'
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
 				onKeyDown={handleKeyDown}
@@ -85,16 +109,16 @@ export default function HouseSquareFootDropdown({ handleProspectHouseSize }) {
 				onClick={handleClickInside}
 			/>
 			{showDropdown && (
-				<ul className='house-size-dropdown'>
-					{houseSizes.map((houseSize, index) => (
-						<p
+				<ul className='calculator-dropdown-dropdown'>
+					{filteredStates.map((state, index) => (
+						<li
 							ref={(el) => (itemRefs.current[index] = el)}
-							key={houseSize}
-							onClick={() => handleSelect(houseSize)}
-							className={`house-size-option  ${index === selectedIndex ? 'selected' : ''}`}
+							key={state}
+							onClick={() => handleSelect(state)}
+							className={`calculator-dropdown-option  ${index === selectedIndex ? 'selected' : ''}`}
 						>
-							{houseSize}
-						</p>
+							{state}
+						</li>
 					))}
 				</ul>
 			)}

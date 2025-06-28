@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './LotSquareFootDropdown.css';
+import './CalculatorDropdown.css';
 
-export default function LotSquareFootDropdown({ handleProspectLotSize }) {
-	const lotSizes = [2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000, 25000, 30000, 35000, 40000];
+export default function DetachedUnitsDropdown({ handleProspectDetachedUnits }) {
+	const detachedUnits = [0, 1, 2, 3];
 	const [query, setQuery] = useState('');
 	const [selectedIndex, setSelectedIndex] = useState(-1);
 	const [showDropdown, setShowDropdown] = useState(false);
@@ -21,10 +21,10 @@ export default function LotSquareFootDropdown({ handleProspectLotSize }) {
 		}
 	}, [selectedIndex]);
 
-	const handleSelect = (lotSize) => {
-		setQuery(lotSize);
+	const handleSelect = (detachedUnits) => {
+		setQuery(detachedUnits);
 		setShowDropdown(false);
-		handleProspectLotSize(lotSize);
+		handleProspectDetachedUnits(detachedUnits);
 		justSelected.current = true; // prevent dropdown from reopening
 		inputRef.current?.blur();
 	};
@@ -38,13 +38,15 @@ export default function LotSquareFootDropdown({ handleProspectLotSize }) {
 
 		if (e.key === 'ArrowDown') {
 			e.preventDefault();
-			setSelectedIndex((prev) => (prev + 1) % lotSizes.length);
+			setSelectedIndex((prev) => (prev + 1) % detachedUnits.length);
 		} else if (e.key === 'ArrowUp') {
 			e.preventDefault();
-			setSelectedIndex((prev) => (prev === -1 ? lotSizes.length - 1 : (prev - 1 + lotSizes.length) % lotSizes.length));
+			setSelectedIndex((prev) =>
+				prev === -1 ? detachedUnits.length - 1 : (prev - 1 + detachedUnits.length) % detachedUnits.length
+			);
 		} else if (e.key === 'Enter' && selectedIndex !== -1) {
 			e.preventDefault();
-			handleSelect(lotSizes[selectedIndex]);
+			handleSelect(detachedUnits[selectedIndex]);
 			setShowDropdown(false);
 		} else if (e.key === 'Escape') {
 			e.preventDefault();
@@ -70,29 +72,30 @@ export default function LotSquareFootDropdown({ handleProspectLotSize }) {
 	}, []);
 
 	return (
-		<div className='lot-size-container' ref={wrapperRef}>
+		<div className='calculator-dropdown-container' ref={wrapperRef}>
 			<input
 				/* onFocus={setShowDropdown(true)} */
 				type='number'
-				placeholder='Lot Size...'
-				className='lot-size-input'
+				placeholder='Number of detached units...'
+				className='calculator-dropdown-input'
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
 				onKeyDown={handleKeyDown}
 				ref={inputRef}
 				onClick={handleClickInside}
+				onWheel={(e) => e.target.blur()}
 			/>
 			{showDropdown && (
-				<ul className='lot-size-dropdown'>
-					{lotSizes.map((lotSize, index) => (
-						<p
+				<ul className='calculator-dropdown-dropdown'>
+					{detachedUnits.map((detachedUnit, index) => (
+						<li
 							ref={(el) => (itemRefs.current[index] = el)}
-							key={lotSize}
-							onClick={() => handleSelect(lotSize)}
-							className={`lot-size-option  ${index === selectedIndex ? 'selected' : ''}`}
+							key={detachedUnit}
+							onClick={() => handleSelect(detachedUnit)}
+							className={`calculator-dropdown-option  ${index === selectedIndex ? 'selected' : ''}`}
 						>
-							{lotSize}
-						</p>
+							{detachedUnit}
+						</li>
 					))}
 				</ul>
 			)}
