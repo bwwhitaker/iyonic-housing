@@ -23,7 +23,7 @@ input[type='number'] {
 	width: 100%;
 	padding: 8px 12px;
 	border: none;
-	border-radius: 4px;
+	border-radius: 20px;
 	font-size: 16px;
 	box-sizing: border-box;
 	background-color: #f1f4f2;
@@ -39,6 +39,7 @@ input[type='number'] {
 	border: 1px solid #ccc;
 	border-top: none;
 	background-color: #fff;
+	border-radius: 20px;
 	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 	z-index: 1000;
 }
@@ -54,4 +55,14 @@ input[type='number'] {
 .calculator-dropdown-option.selected {
 	background-color: #325d63;
 	color: #fff;
+}
+
+.input-label {
+	position: absolute;
+	right: 20px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #787a79;
+	font-size: 16px;
+	pointer-events: none;
 }

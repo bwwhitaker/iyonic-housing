@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './CalculatorDropdown.css';
 
-export default function StateSearchDropdown({ handleProspectState }) {
+export default function StateSearchDropdown({ handleProspectState, reset }) {
 	const [states, setStates] = useState([]);
 	const [query, setQuery] = useState('');
 	const [filteredStates, setFilteredStates] = useState([]);
@@ -45,6 +45,12 @@ export default function StateSearchDropdown({ handleProspectState }) {
 			});
 		}
 	}, [selectedIndex]);
+
+	useEffect(() => {
+		if (reset) {
+			setQuery('');
+		}
+	}, [reset]);
 
 	const handleSelect = (state) => {
 		setQuery(state);
@@ -103,11 +109,18 @@ export default function StateSearchDropdown({ handleProspectState }) {
 				placeholder='State...'
 				className='calculator-dropdown-input'
 				value={query}
-				onChange={(e) => setQuery(e.target.value)}
+				onChange={(e) => {
+					const value = e.target.value;
+					setQuery(value);
+					if (value === '') {
+						handleProspectState('');
+					}
+				}}
 				onKeyDown={handleKeyDown}
 				ref={inputRef}
 				onClick={handleClickInside}
 			/>
+
 			{showDropdown && (
 				<ul className='calculator-dropdown-dropdown'>
 					{filteredStates.map((state, index) => (
@@ -122,6 +135,7 @@ export default function StateSearchDropdown({ handleProspectState }) {
 					))}
 				</ul>
 			)}
+			{query.trim() !== '' && <span className='input-label'>State</span>}
 		</div>
 	);
 }

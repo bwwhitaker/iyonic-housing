@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './CalculatorDropdown.css';
 
-export default function DetachedUnitsDropdown({ handleProspectDetachedUnits }) {
+export default function DetachedUnitsDropdown({ handleProspectDetachedUnits, reset }) {
 	const detachedUnits = [0, 1, 2, 3];
 	const [query, setQuery] = useState('');
 	const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -71,6 +71,12 @@ export default function DetachedUnitsDropdown({ handleProspectDetachedUnits }) {
 		};
 	}, []);
 
+	useEffect(() => {
+		if (reset) {
+			setQuery('');
+		}
+	}, [reset]);
+
 	return (
 		<div className='calculator-dropdown-container' ref={wrapperRef}>
 			<input
@@ -99,6 +105,8 @@ export default function DetachedUnitsDropdown({ handleProspectDetachedUnits }) {
 					))}
 				</ul>
 			)}
+			{query !== '' && query === 1 && <span className='input-label'>Detached Unit</span>}
+			{query !== '' && query !== 1 && <span className='input-label'>Detached Units</span>}
 		</div>
 	);
 }

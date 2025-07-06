@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './CalculatorDropdown.css';
 
-export default function CitySearchDropdown({ state: selectedState, handleProspectCity }) {
+export default function CitySearchDropdown({ state: selectedState, handleProspectCity, reset }) {
 	const [cities, setCities] = useState([]);
 	const [query, setQuery] = useState('');
 	const [filteredCities, setFilteredCities] = useState([]);
@@ -103,6 +103,22 @@ export default function CitySearchDropdown({ state: selectedState, handleProspec
 		};
 	}, []);
 
+	useEffect(() => {
+		if (reset) {
+			setQuery('');
+		}
+	}, [reset]);
+
+	useEffect(() => {
+		if (selectedState === '') {
+			setCities([]);
+			setQuery('');
+			setFilteredCities([]);
+			setSelectedIndex(-1);
+			setShowDropdown(false);
+		}
+	}, [selectedState]);
+
 	return (
 		<div className='calculator-dropdown-container' ref={wrapperRef}>
 			<input
@@ -129,6 +145,7 @@ export default function CitySearchDropdown({ state: selectedState, handleProspec
 					))}
 				</ul>
 			)}
+			{query.trim() !== '' && <span className='input-label'>City</span>}
 		</div>
 	);
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './CalculatorDropdown.css';
 
-export default function StoriesDropdown({ handleProspectStories }) {
+export default function StoriesDropdown({ handleProspectStories, reset }) {
 	const stories = [1, 2, 3];
 	const [query, setQuery] = useState('');
 	const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -69,6 +69,12 @@ export default function StoriesDropdown({ handleProspectStories }) {
 		};
 	}, []);
 
+	useEffect(() => {
+		if (reset) {
+			setQuery('');
+		}
+	}, [reset]);
+
 	return (
 		<div className='calculator-dropdown-container' ref={wrapperRef}>
 			<input
@@ -97,6 +103,8 @@ export default function StoriesDropdown({ handleProspectStories }) {
 					))}
 				</ul>
 			)}
+			{query !== '' && query === 1 && <span className='input-label'>Story</span>}
+			{query !== '' && query > 1 && <span className='input-label'>Stories</span>}
 		</div>
 	);
 }

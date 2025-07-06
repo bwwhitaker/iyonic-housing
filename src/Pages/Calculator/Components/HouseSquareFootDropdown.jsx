@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './CalculatorDropdown.css';
 
-export default function HouseSquareFootDropdown({ handleProspectHouseSize }) {
+export default function HouseSquareFootDropdown({ handleProspectHouseSize, reset }) {
 	const houseSizes = [1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3250, 3500, 3750, 4000];
 	const [query, setQuery] = useState('');
 	const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -71,6 +71,12 @@ export default function HouseSquareFootDropdown({ handleProspectHouseSize }) {
 		};
 	}, []);
 
+	useEffect(() => {
+		if (reset) {
+			setQuery('');
+		}
+	}, [reset]);
+
 	return (
 		<div className='calculator-dropdown-container' ref={wrapperRef}>
 			<input
@@ -99,6 +105,7 @@ export default function HouseSquareFootDropdown({ handleProspectHouseSize }) {
 					))}
 				</ul>
 			)}
+			{query !== '' && <span className='input-label'>House Size</span>}
 		</div>
 	);
 }

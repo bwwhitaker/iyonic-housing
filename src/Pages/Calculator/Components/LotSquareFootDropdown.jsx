@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './CalculatorDropdown.css';
 
-export default function LotSquareFootDropdown({ handleProspectLotSize }) {
+export default function LotSquareFootDropdown({ handleProspectLotSize, reset }) {
 	const lotSizes = [2500, 5000, 7500, 10000, 12500, 15000, 17500, 20000, 25000, 30000, 35000, 40000];
 	const [query, setQuery] = useState('');
 	const [selectedIndex, setSelectedIndex] = useState(-1);
@@ -69,6 +69,12 @@ export default function LotSquareFootDropdown({ handleProspectLotSize }) {
 		};
 	}, []);
 
+	useEffect(() => {
+		if (reset) {
+			setQuery('');
+		}
+	}, [reset]);
+
 	return (
 		<div className='calculator-dropdown-container' ref={wrapperRef}>
 			<input
@@ -97,6 +103,7 @@ export default function LotSquareFootDropdown({ handleProspectLotSize }) {
 					))}
 				</ul>
 			)}
+			{query !== '' && <span className='input-label'>Lot Size</span>}
 		</div>
 	);
 }
