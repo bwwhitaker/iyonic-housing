@@ -126,7 +126,13 @@ export default function CitySearchDropdown({ state: selectedState, handleProspec
 				placeholder='City...'
 				className='calculator-dropdown-input'
 				value={query}
-				onChange={(e) => setQuery(e.target.value)}
+				onChange={(e) => {
+					const value = e.target.value;
+					setQuery(value);
+					if (value === '') {
+						handleProspectCity('');
+					}
+				}}
 				onKeyDown={handleKeyDown}
 				onClick={handleClickInside}
 				ref={inputRef}

@@ -85,7 +85,13 @@ export default function HouseSquareFootDropdown({ handleProspectHouseSize, reset
 				placeholder='House Size...'
 				className='calculator-dropdown-input'
 				value={query}
-				onChange={(e) => setQuery(e.target.value)}
+				onChange={(e) => {
+					const value = e.target.value;
+					setQuery(value);
+					if (value === '') {
+						handleProspectHouseSize();
+					}
+				}}
 				onKeyDown={handleKeyDown}
 				ref={inputRef}
 				onClick={handleClickInside}

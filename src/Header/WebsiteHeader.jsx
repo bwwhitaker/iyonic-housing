@@ -37,7 +37,7 @@ export default function WebsiteHeader() {
 				<div className='dropdown' ref={dropdownRef}>
 					<img src={hamburger} className='hamburger-svg' onClick={toggleDropdown} />
 					<div className={`dropdown-Menu-Content ${isOpen ? 'show' : ''}`}>
-						<DropdownMenu />
+						<DropdownMenu isOpen={isOpen} menuOpen={setIsOpen} />
 					</div>
 				</div>
 			</div>

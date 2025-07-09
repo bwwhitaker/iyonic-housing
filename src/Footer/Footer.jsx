@@ -9,13 +9,19 @@ export default function WebsiteHeader() {
 		<div className='footer-container'>
 			<div className='social-container'>
 				<div className='social-container-item'>
-					<img src={facebook} alt='facebook link' />
+					<a href='https://www.facebook.com' target='_blank' rel='noopener noreferrer'>
+						<img src={facebook} alt='facebook link' />
+					</a>
 				</div>
 				<div className='social-container-item'>
-					<img src={insta} alt='instagram link' />
+					<a href='https://www.instagram.com' target='_blank' rel='noopener noreferrer'>
+						<img src={insta} alt='instagram link' />
+					</a>
 				</div>
 				<div className='social-container-item'>
-					<img src={yelp} alt='yelp link' />
+					<a href='https://www.yelp.com' target='_blank' rel='noopener noreferrer'>
+						<img src={yelp} alt='yelp link' />
+					</a>
 				</div>
 			</div>
 			<h3>Building a Better Future Together</h3>
@@ -25,8 +31,10 @@ export default function WebsiteHeader() {
 					Subscribe
 				</button>
 			</form>
-			<p>123 Community Lane, Suite 456, Metropolis</p>
-			<p>contact@iyonichousing.com</p>
+			<div className='footer-contact-container'>
+				<p>Portland, Oregon</p>
+				<p>contact@iyonichousing.com</p>
+			</div>
 		</div>
 	);
 }

@@ -4,6 +4,7 @@
 }
 
 .social-container {
+	margin-top: 52px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -11,13 +12,19 @@
 	gap: 20px;
 }
 
+.footer-contact-container {
+	margin-top: 52px;
+}
+
 .footer-container h3 {
+	margin-top: 52px;
+	margin-bottom: 52px;
 	font-size: 20px;
 	font-weight: bold;
 	color: #1b2820;
 }
 
-.footer-container p {
+.footer-contact-container p {
 	font-size: 15px;
 	color: #1b2820;
 }
