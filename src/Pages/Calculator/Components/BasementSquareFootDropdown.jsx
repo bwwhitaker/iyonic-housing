@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './CalculatorDropdown.css';
 
 export default function BasementSquareFootDropdown({ handleProspectBasementSize, reset }) {
-	const basementSizes = [500, 750, 1000, 1250, 1500, 1750];
+	const basementSizes = [0, 400, 450, 500, 550, 600, 650, 700];
 	const [query, setQuery] = useState('');
 	const [selectedIndex, setSelectedIndex] = useState(-1);
 	const [showDropdown, setShowDropdown] = useState(false);
@@ -82,7 +82,7 @@ export default function BasementSquareFootDropdown({ handleProspectBasementSize,
 			<input
 				/* onFocus={setShowDropdown(true)} */
 				type='number'
-				placeholder='Basement Conversion Size...'
+				placeholder='Basement Square Footage (if converting)...'
 				className='calculator-dropdown-input'
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}

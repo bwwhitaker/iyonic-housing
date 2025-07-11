@@ -26,11 +26,22 @@
 	padding-top: 8px;
 	padding-bottom: 8px;
 }
-.Mobile-Menu {
+.Mobile-Menu a {
 	font-size: 15px;
 	justify-content: center;
 	font-weight: 500;
 	color: #1b2820;
+}
+
+.Mobile-Menu a,
+.Desktop-Menu a {
+	color: #1b2820;
+	text-decoration: none; /* optional */
+}
+.Mobile-Menu a:hover,
+.Desktop-Menu a:hover {
+	color: #325d63;
+	text-decoration: underline; /* optional */
 }
 
 .Menu-Item {
@@ -41,6 +52,10 @@
 	text-decoration: underline;
 	cursor: pointer;
 	color: #325d63;
+}
+
+a:link {
+	color: #1b2820 !important;
 }
 
 .dropdown-Menu-Content.show {

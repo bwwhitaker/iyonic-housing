@@ -1,0 +1,70 @@
+h3 {
+	font-size: 20px;
+	font-weight: bold;
+	color: #000000;
+	text-align: left;
+	margin-bottom: 15px;
+}
+
+.resultContainer {
+	text-align: center;
+	margin-top: -100px;
+}
+
+.costResultPlaceholder {
+	width: 450px;
+	margin: 0 auto;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	background-color: #e8f2ec;
+	border-radius: 12px;
+	font-size: 17px;
+	font-weight: bold;
+	color: #747976;
+}
+
+.earningsResultPlaceholder {
+	max-width: 450px;
+	margin: 0 auto;
+	padding-top: 100px;
+	padding-bottom: 100px;
+	background-color: #e8f2ec;
+	border-radius: 12px;
+	font-size: 17px;
+	font-weight: bold;
+	color: #747976;
+}
+
+.results-row {
+	justify-content: space-between;
+	display: flex;
+	align-items: flex-end;
+	margin: 0 auto;
+	width: 450px;
+}
+
+.neighbors-row {
+	display: flex;
+	align-items: flex-end;
+}
+
+.neighbors-row button {
+	padding: 0px;
+	margin: 3px;
+	background-color: transparent;
+}
+.results-row:not(:first-child) {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.results-row:first-child {
+	padding-bottom: 10px;
+}
+
+.results-row:not(:last-child) {
+	border-bottom: 1px solid #e0e0e0;
+}
+.results-label {
+	color: #9d9d9d;
+}

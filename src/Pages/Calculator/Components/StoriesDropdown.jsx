@@ -80,7 +80,7 @@ export default function StoriesDropdown({ handleProspectStories, reset }) {
 			<input
 				/* onFocus={setShowDropdown(true)} */
 				type='number'
-				placeholder='Stories..'
+				placeholder='Stories (excluding basement)...'
 				className='calculator-dropdown-input'
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}

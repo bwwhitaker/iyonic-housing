@@ -38,15 +38,15 @@ export default function AttachedUnitsDropdown({ handleProspectAttachedUnits, res
 
 		if (e.key === 'ArrowDown') {
 			e.preventDefault();
-			setSelectedIndex((prev) => (prev + 1) % attachedUnits.length);
+			setSelectedIndex((prev) => (prev + 1) % filteredUnits.length);
 		} else if (e.key === 'ArrowUp') {
 			e.preventDefault();
 			setSelectedIndex((prev) =>
-				prev === -1 ? attachedUnits.length - 1 : (prev - 1 + attachedUnits.length) % attachedUnits.length
+				prev === -1 ? filteredUnits.length - 1 : (prev - 1 + filteredUnits.length) % filteredUnits.length
 			);
 		} else if (e.key === 'Enter' && selectedIndex !== -1) {
 			e.preventDefault();
-			handleSelect(attachedUnits[selectedIndex]);
+			handleSelect(filteredUnits[selectedIndex]);
 			setShowDropdown(false);
 		} else if (e.key === 'Escape') {
 			e.preventDefault();
@@ -77,12 +77,14 @@ export default function AttachedUnitsDropdown({ handleProspectAttachedUnits, res
 		}
 	}, [reset]);
 
+	const filteredUnits = attachedUnits.filter((unit) => unit.toString().includes(query.toString()));
+
 	return (
 		<div className='calculator-dropdown-container' ref={wrapperRef}>
 			<input
 				/* onFocus={setShowDropdown(true)} */
 				type='number'
-				placeholder='Number of attached units...'
+				placeholder='Number of attached units (750 sqft each)...'
 				className='calculator-dropdown-input'
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
@@ -93,7 +95,7 @@ export default function AttachedUnitsDropdown({ handleProspectAttachedUnits, res
 			/>
 			{showDropdown && (
 				<ul className='calculator-dropdown-dropdown'>
-					{attachedUnits.map((attachedUnit, index) => (
+					{filteredUnits.map((attachedUnit, index) => (
 						<li
 							ref={(el) => (itemRefs.current[index] = el)}
 							key={attachedUnit}

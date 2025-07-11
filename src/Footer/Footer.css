@@ -3,6 +3,11 @@
 	justify-content: center;
 }
 
+.footer-container h3 {
+	width: 100%;
+	text-align: center;
+}
+
 .social-container {
 	margin-top: 52px;
 	display: flex;

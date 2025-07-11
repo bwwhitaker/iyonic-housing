@@ -38,15 +38,15 @@ export default function DetachedUnitsDropdown({ handleProspectDetachedUnits, res
 
 		if (e.key === 'ArrowDown') {
 			e.preventDefault();
-			setSelectedIndex((prev) => (prev + 1) % detachedUnits.length);
+			setSelectedIndex((prev) => (prev + 1) % filteredUnits.length);
 		} else if (e.key === 'ArrowUp') {
 			e.preventDefault();
 			setSelectedIndex((prev) =>
-				prev === -1 ? detachedUnits.length - 1 : (prev - 1 + detachedUnits.length) % detachedUnits.length
+				prev === -1 ? filteredUnits.length - 1 : (prev - 1 + filteredUnits.length) % filteredUnits.length
 			);
 		} else if (e.key === 'Enter' && selectedIndex !== -1) {
 			e.preventDefault();
-			handleSelect(detachedUnits[selectedIndex]);
+			handleSelect(filteredUnits[selectedIndex]);
 			setShowDropdown(false);
 		} else if (e.key === 'Escape') {
 			e.preventDefault();
@@ -54,7 +54,6 @@ export default function DetachedUnitsDropdown({ handleProspectDetachedUnits, res
 			setShowDropdown(false);
 		}
 	};
-
 	const handleClickInside = () => {
 		setShowDropdown(true);
 	};
@@ -77,12 +76,14 @@ export default function DetachedUnitsDropdown({ handleProspectDetachedUnits, res
 		}
 	}, [reset]);
 
+	const filteredUnits = detachedUnits.filter((unit) => unit.toString().includes(query.toString()));
+
 	return (
 		<div className='calculator-dropdown-container' ref={wrapperRef}>
 			<input
 				/* onFocus={setShowDropdown(true)} */
 				type='number'
-				placeholder='Number of detached units...'
+				placeholder='Number of detached units (750 sqft each)...'
 				className='calculator-dropdown-input'
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
@@ -93,7 +94,7 @@ export default function DetachedUnitsDropdown({ handleProspectDetachedUnits, res
 			/>
 			{showDropdown && (
 				<ul className='calculator-dropdown-dropdown'>
-					{detachedUnits.map((detachedUnit, index) => (
+					{filteredUnits.map((detachedUnit, index) => (
 						<li
 							ref={(el) => (itemRefs.current[index] = el)}
 							key={detachedUnit}

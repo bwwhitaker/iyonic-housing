@@ -82,7 +82,7 @@ export default function HouseSquareFootDropdown({ handleProspectHouseSize, reset
 			<input
 				/* onFocus={setShowDropdown(true)} */
 				type='number'
-				placeholder='House Size...'
+				placeholder='House Square Footage (excluding basement)...'
 				className='calculator-dropdown-input'
 				value={query}
 				onChange={(e) => {

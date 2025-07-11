@@ -80,7 +80,7 @@ export default function LotSquareFootDropdown({ handleProspectLotSize, reset }) 
 			<input
 				/* onFocus={setShowDropdown(true)} */
 				type='number'
-				placeholder='Lot Size...'
+				placeholder='Lot Square Footage...'
 				className='calculator-dropdown-input'
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
