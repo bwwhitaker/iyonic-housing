@@ -29,24 +29,31 @@ export default function BasementSquareFootDropdown({ handleProspectBasementSize,
 		inputRef.current?.blur();
 	};
 
-	const handleKeyDown = (e) => {
-		/* if (!showDropdown) return; */
+	const filteredSizes = basementSizes.filter((unit) => unit.toString().includes(query.toString()));
 
+	const handleKeyDown = (e) => {
 		if (!showDropdown && e.key === 'ArrowDown') {
 			setShowDropdown(true);
 		}
 
 		if (e.key === 'ArrowDown') {
 			e.preventDefault();
-			setSelectedIndex((prev) => (prev + 1) % basementSizes.length);
+			setSelectedIndex((prev) => (prev + 1) % filteredSizes.length);
 		} else if (e.key === 'ArrowUp') {
 			e.preventDefault();
 			setSelectedIndex((prev) =>
-				prev === -1 ? basementSizes.length - 1 : (prev - 1 + basementSizes.length) % basementSizes.length
+				prev === -1 ? filteredSizes.length - 1 : (prev - 1 + filteredSizes.length) % filteredSizes.length
 			);
-		} else if (e.key === 'Enter' && selectedIndex !== -1) {
+		} else if (e.key === 'Enter' || e.key === 'Tab') {
 			e.preventDefault();
-			handleSelect(basementSizes[selectedIndex]);
+			const parsedQuery = Number(query);
+
+			if (!isNaN(parsedQuery) && basementSizes.includes(parsedQuery)) {
+				handleSelect(parsedQuery); // exact match from input
+			} else if (selectedIndex !== -1) {
+				handleSelect(filteredSizes[selectedIndex]); // fallback to selected item
+			}
+
 			setShowDropdown(false);
 		} else if (e.key === 'Escape') {
 			e.preventDefault();

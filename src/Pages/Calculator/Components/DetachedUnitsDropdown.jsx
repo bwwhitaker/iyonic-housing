@@ -30,8 +30,6 @@ export default function DetachedUnitsDropdown({ handleProspectDetachedUnits, res
 	};
 
 	const handleKeyDown = (e) => {
-		/* if (!showDropdown) return; */
-
 		if (!showDropdown && e.key === 'ArrowDown') {
 			setShowDropdown(true);
 		}
@@ -44,9 +42,16 @@ export default function DetachedUnitsDropdown({ handleProspectDetachedUnits, res
 			setSelectedIndex((prev) =>
 				prev === -1 ? filteredUnits.length - 1 : (prev - 1 + filteredUnits.length) % filteredUnits.length
 			);
-		} else if (e.key === 'Enter' && selectedIndex !== -1) {
+		} else if (e.key === 'Enter' || e.key === 'Tab') {
 			e.preventDefault();
-			handleSelect(filteredUnits[selectedIndex]);
+			const parsedQuery = Number(query);
+
+			if (!isNaN(parsedQuery) && detachedUnits.includes(parsedQuery)) {
+				handleSelect(parsedQuery); // exact match from input
+			} else if (selectedIndex !== -1) {
+				handleSelect(filteredUnits[selectedIndex]); // fallback to selected item
+			}
+
 			setShowDropdown(false);
 		} else if (e.key === 'Escape') {
 			e.preventDefault();
