@@ -1,10 +1,8 @@
-import React, { useEffect, useState, Suspense, lazy, useContext } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import WebsiteHeader from './Header/WebsiteHeader';
 import Footer from './Footer/Footer';
-import { supabase } from './DBClient/supabaseclient';
-import { AuthContext } from './Auth/AuthContext';
 import ProtectedRoute from './Auth/ProtectedRoute';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,28 +15,6 @@ const NotFound = lazy(() => import('./Pages/NotFound/NotFound'));
 const Dashboard = lazy(() => import('./Pages/Dashboard/Dashboard'));
 
 function App() {
-	const [todos, setTodos] = useState([]);
-	const { user, isAuthenticated } = useContext(AuthContext);
-
-	useEffect(() => {
-		if (isAuthenticated) {
-			getTodos();
-		}
-	}, [isAuthenticated]);
-
-	async function getTodos() {
-		const { data, error } = await supabase.from('todos').select();
-		if (error) {
-			console.error('Error fetching todos:', error.message);
-			return;
-		}
-		if (!data || data.length === 0) {
-			setTodos([{ task: 'No tasks found' }]);
-			return;
-		}
-		setTodos(data);
-	}
-
 	return (
 		<Router>
 			<div>
